@@ -15,7 +15,7 @@ pool:
   vmImage: "ubuntu-latest"
 
 variables:
-  acrServiceConnection: "sc-acr-demo-01" # Azure DevOpsのサービス接続名
+  acrServiceConnection: "sc-acr-demo-1222" # Azure DevOpsのサービス接続名
   acrName: "acracaedemo01" # ACRの名前（例: myacr）
   imageName: "dapr-state-psql-demo"
   imageTag: "$(Build.BuildId)"
