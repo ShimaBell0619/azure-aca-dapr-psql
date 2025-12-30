@@ -4,7 +4,7 @@ trigger:
   - none
 
 parameters:
-  - name: acrServiceConnection
+  - name: registryServiceConnection
     displayName: "ACR Service Connection"
     type: string
     default: "sc-acr-20251230"
@@ -25,7 +25,7 @@ pool:
   vmImage: "ubuntu-latest"
 
 variables:
-  acrServiceConnection: ${{ parameters.acrServiceConnection }}
+  registryServiceConnection: ${{ parameters.registryServiceConnection }}
   acrName: ${{ parameters.acrName }}
   imageName: ${{ parameters.imageName }}
   imageTag: ${{ parameters.imageTag }}
@@ -40,7 +40,7 @@ stages:
           - task: Docker@2
             displayName: "Build and Push to ACR"
             inputs:
-              containerRegistry: "$(acrServiceConnection)"
+              containerRegistry: "$(registryServiceConnection)"
               repository: "$(imageName)"
               command: "buildAndPush"
               Dockerfile: "**/Dockerfile"
