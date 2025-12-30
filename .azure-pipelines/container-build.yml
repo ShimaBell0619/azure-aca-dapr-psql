@@ -1,24 +1,34 @@
 # Azure Pipeline: Build and Push Docker image to Azure Container Registry
-# trigger:
-#   branches:
-#     include:
-#       - main
-#   paths:
-#     include:
-#       - app/**
-#       - Dockerfile
 
 trigger:
   - none
+
+parameters:
+  - name: acrServiceConnection
+    displayName: "ACR Service Connection"
+    type: string
+    default: "sc-acr-20251230"
+  - name: acrName
+    displayName: "ACR Name"
+    type: string
+    default: "acrdemo20251230"
+  - name: imageName
+    displayName: "Image Name"
+    type: string
+    default: "dapr-psql-demo"
+  - name: imageTag
+    displayName: "Image Tag"
+    type: string
+    default: "$(Build.BuildId)"
 
 pool:
   vmImage: "ubuntu-latest"
 
 variables:
-  acrServiceConnection: "sc-acr-demo-1222" # Azure DevOpsのサービス接続名
-  acrName: "acracaedemo01" # ACRの名前（例: myacr）
-  imageName: "dapr-state-psql-demo"
-  imageTag: "$(Build.BuildId)"
+  acrServiceConnection: ${{ parameters.acrServiceConnection }}
+  acrName: ${{ parameters.acrName }}
+  imageName: ${{ parameters.imageName }}
+  imageTag: ${{ parameters.imageTag }}
 
 stages:
   - stage: Build
