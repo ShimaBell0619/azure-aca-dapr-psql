@@ -8,10 +8,10 @@ parameters:
     displayName: "Registry Service Connection"
     type: string
     default: "sc-dockerhub-shimabell"
-  - name: imageName
-    displayName: "Image Name"
+  - name: repositoryName
+    displayName: "Repository Name"
     type: string
-    default: "dapr-psql-demo"
+    default: "shimabell/dapr-psql-demo"
   - name: imageTag
     displayName: "Image Tag"
     type: string
@@ -41,13 +41,13 @@ stages:
             displayName: Build Docker Image
             inputs:
               command: build
-              repository: ${{ parameters.imageName }}
+              repository: ${{ parameters.repositoryName }}
               tags: |
                 ${{ parameters.imageTag }}
                 latest
               dockerfile: "./Dockerfile"
               arguments: |
-                --cache-from ${{ parameters.imageName }}:latest
+                --cache-from ${{ parameters.repositoryName }}:latest
             env:
               DOCKER_BUILDKIT: 1
 
@@ -56,7 +56,7 @@ stages:
             condition: eq(variables['Build.SourceBranch'], 'refs/heads/main')
             inputs:
               command: push
-              repository: ${{ parameters.imageName }}
+              repository: ${{ parameters.repositoryName }}
               tags: |
                 ${{ parameters.imageTag }}
                 latest
