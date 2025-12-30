@@ -47,7 +47,6 @@ stages:
                 latest
               dockerfile: "./Dockerfile"
               arguments: |
-                --sbom=true
                 --cache-from ${{ parameters.imageName }}:latest
             env:
               DOCKER_BUILDKIT: 1
