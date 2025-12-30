@@ -48,7 +48,6 @@ stages:
               dockerfile: "./Dockerfile"
               arguments: |
                 --sbom=true
-                --attest type=provenance
                 --cache-from ${{ parameters.imageName }}:latest
             env:
               DOCKER_BUILDKIT: 1
