@@ -7,7 +7,7 @@ parameters:
   - name: registryServiceConnection
     displayName: "ACR Service Connection"
     type: string
-    default: "sc-acr-20251230"
+    default: "sc-dockerhub-shimabell"
   - name: acrName
     displayName: "ACR Name"
     type: string
