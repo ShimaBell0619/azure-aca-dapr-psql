@@ -26,10 +26,7 @@ stages:
     jobs:
       - job: DockerJob
         displayName: Build and Push
-        pool:
-          vmImage: ubuntu-latest
-          demands:
-            - docker
+
         steps:
           - checkout: self
             displayName: Checkout Code
