@@ -8,7 +8,7 @@ app = FastAPI(title="Dapr State Management Demo")
 
 # Dapr設定
 DAPR_HTTP_PORT = os.getenv("DAPR_HTTP_PORT", "3500")
-DAPR_STATE_STORE = "auth-psql"
+DAPR_STATE_STORE = "state_store_psql"
 DAPR_URL = f"http://localhost:{DAPR_HTTP_PORT}/v1.0/state/{DAPR_STATE_STORE}"
 
 
