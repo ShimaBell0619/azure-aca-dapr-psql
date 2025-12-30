@@ -5,7 +5,7 @@ trigger:
 
 parameters:
   - name: registryServiceConnection
-    displayName: "ACR Service Connection"
+    displayName: "Registry Service Connection"
     type: string
     default: "sc-dockerhub-shimabell"
   - name: acrName
@@ -24,26 +24,20 @@ parameters:
 pool:
   vmImage: "ubuntu-latest"
 
-variables:
-  registryServiceConnection: ${{ parameters.registryServiceConnection }}
-  acrName: ${{ parameters.acrName }}
-  imageName: ${{ parameters.imageName }}
-  imageTag: ${{ parameters.imageTag }}
-
 stages:
-  - stage: Build
+  - stage: BuildAndPush
     displayName: "Build and Push Image"
     jobs:
       - job: BuildAndPush
         displayName: "Build and Push Docker Image"
         steps:
           - task: Docker@2
-            displayName: "Build and Push to ACR"
+            displayName: "Build and Push to Registry"
             inputs:
-              containerRegistry: "$(registryServiceConnection)"
-              repository: "$(imageName)"
+              containerRegistry: ${{ parameters.registryServiceConnection }}
+              repository: ${{ parameters.imageName }}
               command: "buildAndPush"
               Dockerfile: "**/Dockerfile"
               tags: |
-                $(imageTag)
+                ${{ parameters.imageTag }}
                 latest
